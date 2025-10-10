@@ -1,0 +1,143 @@
+@import "tailwindcss";
+
+.font-bitcount {
+  font-family: 'Bitcount Single Ink', sans-serif;
+}
+
+/* Dark theme data table styles */
+.dark-table {
+  background-color: rgb(31 41 55); /* bg-gray-800 */
+  color: white;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  border: 1px solid rgb(55 65 81); /* border-gray-700 */
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.dark-table .rdt_Table {
+  background-color: rgb(31 41 55); /* bg-gray-800 */
+  color: white;
+}
+
+.dark-table .rdt_TableHead {
+  background-color: rgb(55 65 81); /* bg-gray-700 */
+}
+
+.dark-table .rdt_TableHeadRow {
+  background-color: rgb(55 65 81); /* bg-gray-700 */
+  border-bottom: 1px solid rgb(75 85 99); /* border-gray-600 */
+}
+
+.dark-table .rdt_TableCol {
+  color: rgb(249 250 251); /* text-gray-50 */
+  font-weight: 600;
+  font-size: 14px;
+  padding: 16px;
+  border-right: 1px solid rgb(75 85 99); /* border-gray-600 */
+}
+
+.dark-table .rdt_TableCol:last-child {
+  border-right: none;
+}
+
+.dark-table .rdt_TableRow {
+  background-color: rgb(31 41 55); /* bg-gray-800 */
+  color: white;
+  border-bottom: 1px solid rgb(55 65 81); /* border-gray-700 */
+  transition: background-color 0.2s ease;
+}
+
+.dark-table .rdt_TableRow:hover {
+  background-color: rgb(55 65 81); /* hover:bg-gray-700 */
+}
+
+.dark-table .rdt_TableRow:nth-child(even) {
+  background-color: rgb(31 41 55); /* Keep consistent */
+}
+
+.dark-table .rdt_TableCell {
+  padding: 16px;
+  font-size: 14px;
+  color: rgb(229 231 235); /* text-gray-200 */
+  border-right: 1px solid rgb(55 65 81); /* border-gray-700 */
+}
+
+.dark-table .rdt_TableCell:last-child {
+  border-right: none;
+}
+
+.dark-table .rdt_Pagination {
+  background-color: rgb(55 65 81); /* bg-gray-700 */
+  color: rgb(229 231 235); /* text-gray-200 */
+  border-top: 1px solid rgb(75 85 99); /* border-gray-600 */
+  padding: 12px 16px;
+}
+
+.dark-table .rdt_Pagination button {
+  color: rgb(229 231 235); /* text-gray-200 */
+  background-color: transparent;
+  border: 1px solid rgb(75 85 99);
+  border-radius: 0.375rem;
+  padding: 6px 12px;
+  margin: 0 2px;
+  transition: all 0.2s ease;
+}
+
+.dark-table .rdt_Pagination button:hover:not(:disabled) {
+  background-color: rgb(75 85 99); /* hover:bg-gray-600 */
+  color: white;
+}
+
+.dark-table .rdt_Pagination button:disabled {
+  color: rgb(156 163 175); /* text-gray-400 */
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.dark-table .rdt_Pagination select {
+  background-color: rgb(55 65 81); /* bg-gray-700 */
+  color: rgb(229 231 235); /* text-gray-200 */
+  border: 1px solid rgb(75 85 99); /* border-gray-600 */
+  border-radius: 0.375rem;
+  padding: 4px 8px;
+  margin: 0 8px;
+}
+
+.dark-table .rdt_Pagination select:focus {
+  outline: 2px solid rgb(59 130 246); /* focus:ring-blue-500 */
+  outline-offset: 2px;
+}
+
+/* Responsive table styles */
+@media (max-width: 640px) {
+  .dark-table .rdt_TableCol,
+  .dark-table .rdt_TableCell {
+    padding: 8px 6px;
+    font-size: 12px;
+  }
+  
+  .dark-table .rdt_Pagination {
+    padding: 8px 12px;
+  }
+  
+  .dark-table .rdt_Pagination button {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+  
+  .dark-table .rdt_TableHead {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dark-table .rdt_TableCol,
+  .dark-table .rdt_TableCell {
+    padding: 6px 4px;
+    font-size: 11px;
+  }
+  
+  .dark-table .rdt_TableCol {
+    font-size: 10px;
+  }
+}
