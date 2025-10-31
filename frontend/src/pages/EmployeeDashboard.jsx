@@ -1,9 +1,47 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
+import Sidebar from '../components/EmployeeDashboard/Sidebar';
+import NavBar from '../components/dashboard/NavBar';
+import { Outlet } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+
+
+
+
+
 
 const EmployeeDashboard = () => {
+
+  const { user } = useAuth();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  // Close sidebar on Escape key press
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (e.key === 'Escape' && isSidebarOpen) {
+        setIsSidebarOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyPress);
+    return () => document.removeEventListener('keydown', handleKeyPress);
+  }, [isSidebarOpen]);
+
+
+
   return (
-    <div>
-      <h2>Employee Dashboard</h2>
+    <div className='flex'>
+      <Sidebar 
+      isOpen={isSidebarOpen}
+      onClose={()=>setIsSidebarOpen(false)}
+      />
+      <div className='flex-1 lg:ml-64 bg-gray-700 min-h-screen'>
+        <NavBar toggleSidebar={toggleSidebar} />
+        <Outlet />
+      </div>
     </div>
   )
 }

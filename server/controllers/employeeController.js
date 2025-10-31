@@ -3,6 +3,7 @@ const User = require('../models/usermodel');
 const bcrypt = require('bcrypt');
 const multer = require('multer');
 const path = require('path');
+const mongoose = require('mongoose');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -22,7 +23,7 @@ const addEmployee = async (req, res) => {
     try {
         console.log('Request body:', req.body);
         console.log('Request file:', req.file);
-        
+
         const {
             name,
             email,
@@ -108,10 +109,19 @@ const addEmployee = async (req, res) => {
 }
 
 const getEmployee = async (req, res) => {
-
-
     try {
-        const employees = await Employee.find().populate('userId', {password: 0}).populate('department');
+        const employees = await Employee.find().populate('userId', { password: 0 }).populate('department');
+        console.log('Total employees found:', employees.length);
+        employees.forEach((emp, index) => {
+            console.log(`Employee ${index + 1}:`, {
+                _id: emp._id,
+                userId: emp.userId?._id,
+                name: emp.name,
+                email: emp.email,
+                employeeId: emp.employeeId
+            });
+        });
+        
         return res.status(200).json({
             success: true,
             employees
@@ -128,22 +138,54 @@ const getEmployee = async (req, res) => {
 const getEmployeeById = async (req, res) => {
     try {
         const { id } = req.params;
-        const employee = await Employee.findById(id)
+        console.log('Getting employee by ID:', id);
+        console.log('ID type:', typeof id);
+        console.log('ID length:', id.length);
+        
+        let employee;
+        
+        // Validate ObjectId format first
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            console.log('Invalid ObjectId format:', id);
+            return res.status(400).json({
+                success: false,
+                message: "Invalid ID format"
+            });
+        }
+
+        // Since User._id = Employee.userId, search by userId first (most common case)
+        console.log('Searching by Employee.userId (User._id -> Employee.userId)');
+        employee = await Employee.findOne({ userId: id })
             .populate('userId', { password: 0 })
             .populate('department');
         
+        console.log('Employee found by userId:', employee ? 'Yes' : 'No');
+
+        // If not found by userId, try by Employee._id (less common case)
         if (!employee) {
+            console.log('Searching by Employee._id as fallback');
+            employee = await Employee.findById(id)
+                .populate('userId', { password: 0 })
+                .populate('department');
+            
+            console.log('Employee found by _id:', employee ? 'Yes' : 'No');
+        }
+
+        if (!employee) {
+            console.log('No employee found with ID:', id);
             return res.status(404).json({
                 success: false,
                 message: "Employee not found"
             });
         }
 
+        console.log('Employee found:', employee.name || employee.userId?.name);
         return res.status(200).json({
             success: true,
             employee
         });
     } catch (error) {
+        console.error('Error in getEmployeeById:', error);
         return res.status(500).json({
             success: false,
             message: "Internal server error",

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Outlet, useNavigate } from 'react-router-dom';
 import AdminSideBar from '../components/dashboard/AdminSidebar';
-import NavBar from '../components/dashboard/Navbar';
+import NavBar from '../components/dashboard/NavBar';
 
 
 const AdminDashboard = () => {

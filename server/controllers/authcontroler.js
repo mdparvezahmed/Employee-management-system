@@ -128,6 +128,33 @@ const verify = async (req, res) => {
   });
 }
 
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find({}, { password: 0 }); // Exclude password field
+    console.log('Total users found:', users.length);
+    users.forEach((user, index) => {
+      console.log(`User ${index + 1}:`, {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role
+      });
+    });
+    
+    return res.status(200).json({
+      success: true,
+      users
+    });
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    return res.status(500).json({
+      success: false,
+      message: "Error fetching users",
+      error: error.message
+    });
+  }
+}
+
 const changePassword = async (req, res) => {
   try {
     const { currentPassword, newPassword } = req.body;
@@ -202,5 +229,6 @@ module.exports = {
   register,
   login,
   verify,
-  changePassword
+  changePassword,
+  getAllUsers
 };

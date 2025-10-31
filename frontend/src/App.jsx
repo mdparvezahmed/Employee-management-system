@@ -13,7 +13,8 @@ import Add from './components/employee/Add';
 import View from './components/employee/view';
 import Edit from './components/employee/Edit';
 import Settings from './components/Settings/settings';
-
+import EmployeeSummary from './components/EmployeeDashboard/EmployeeSummary';
+import Profile from './components/EmployeeDashboard/Profile';
 
 function App() {
   return (
@@ -43,9 +44,24 @@ function App() {
 
           <Route path="/admin-dashboard/settings" element={<Settings />} />
 
+        </Route>
+
+
+        <Route path="/employee-dashboard" element={
+          <PrivateRoutes>
+            <RoleBaseRoutes requiredRole={["admin", "employee"]}>
+              <EmployeeDashboard />
+            </RoleBaseRoutes>
+          </PrivateRoutes>
+
+        } >
+          
+          <Route index element={<EmployeeSummary/>} ></Route>
+          <Route path="/employee-dashboard/profile/:id" element={<Profile />} ></Route>
+          <Route path="/employee-dashboard/profile" element={<Profile />} ></Route>
 
         </Route>
-        <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
+
 
 
       </Routes>
