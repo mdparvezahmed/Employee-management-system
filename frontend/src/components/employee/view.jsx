@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
+import { axiosAPI, buildUploadUrl } from '../../config/api'
 
 const View = () => {
     const { id } = useParams();
@@ -11,7 +12,7 @@ const View = () => {
         const fetchEmployees = async () => {
             setLoading(true);
             try {
-                const response = await axios.get(`http://localhost:7000/api/employee/${id}`,
+                const response = await axiosAPI.get(`/api/employee/${id}`,
                     {
                         headers: {
                             "Authorization": `Bearer ${localStorage.getItem("token")}`
@@ -69,7 +70,7 @@ const View = () => {
                         <div className="lg:col-span-1">
                             <div className="bg-gray-800 rounded-lg p-4 text-center border border-gray-700">
                                 <img 
-                                    src={`http://localhost:7000/uploads/${employee.userId?.profileImage || employee.image}`} 
+                                    src={buildUploadUrl(employee.userId?.profileImage || employee.image)} 
                                     alt={employee.name}
                                     className="w-48 h-48 rounded-full mx-auto object-cover border-4 border-gray-600 shadow-2xl"
                                     onError={(e) => {

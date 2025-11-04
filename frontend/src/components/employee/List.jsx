@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { axiosAPI, buildUploadUrl } from '../../config/api';
 import { getColumns, EmployeeButtons } from '../../utils/EmployeeHelper';
 import DataTable from 'react-data-table-component';
 
@@ -26,7 +27,7 @@ const List = () => {
         const fetchEmployees = async () => {
             setLoading(true);
             try {
-                const response = await axios.get('http://localhost:7000/api/employee',
+                const response = await axiosAPI.get('/api/employee',
                     {
                         headers: {
                             "Authorization": `Bearer ${localStorage.getItem("token")}`
@@ -134,7 +135,7 @@ const List = () => {
                             <div key={employee._id} className="bg-gray-800 border border-gray-700 rounded-lg shadow-md p-4">
                                 <div className="flex items-start space-x-4 mb-4">
                                     <img
-                                        src={`http://localhost:7000/uploads/${employee.profileImage}`}
+                                        src={buildUploadUrl(employee.profileImage)}
                                         alt={employee.name}
                                         className="w-16 h-16 rounded-full object-cover border-2 border-gray-600"
                                         onError={(e) => {

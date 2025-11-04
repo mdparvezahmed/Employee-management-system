@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { fetchDepartments } from '../../utils/EmployeeHelper'
 import axios from 'axios';
+import { axiosAPI } from '../../config/api';
 
 const Add = () => {
   const [imagePreview, setImagePreview] = useState(null)
@@ -54,7 +55,7 @@ const Add = () => {
     });
     try {
 
-      const response = await axios.post("http://localhost:7000/api/employee/add", formDataObj, {
+      const response = await axiosAPI.post("/api/employee/add", formDataObj, {
         headers: {
           "Authorization": `Bearer ${localStorage.getItem("token")}`
         }

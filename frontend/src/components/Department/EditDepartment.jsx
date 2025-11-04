@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { axiosAPI } from '../../config/api';
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
 
@@ -12,7 +13,7 @@ const EditDepartment = () => {
     const fetchDepartment = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`http://localhost:7000/api/department/${id}`,
+        const response = await axiosAPI.get(`/api/department/${id}`,
           {
             headers: {
               "Authorization": `Bearer ${localStorage.getItem("token")}`
@@ -44,7 +45,7 @@ const EditDepartment = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.put(`http://localhost:7000/api/department/${id}`, 
+      const response = await axiosAPI.put(`/api/department/${id}`, 
         {
           dep_name: department.dep_name,
           description: department.description

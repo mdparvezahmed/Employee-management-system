@@ -1,10 +1,11 @@
 import axios from "axios";
+import { axiosAPI, buildUploadUrl } from "../config/api";
 import { useNavigate } from "react-router-dom";
 
 export const fetchDepartments = async () => {
     let departments;
     try {
-        const response = await axios.get('http://localhost:7000/api/department',
+        const response = await axiosAPI.get('/api/department',
             {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("token")}`
@@ -40,7 +41,7 @@ export const getColumns = (isMobile = false) => [
         cell: (row) => (
             <div className="flex justify-center">
                 <img
-                    src={`http://localhost:7000/uploads/${row.profileImage}`}
+                    src={buildUploadUrl(row.profileImage)}
                     alt={row.name}
                     className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full object-cover"
                     onError={(e) => {

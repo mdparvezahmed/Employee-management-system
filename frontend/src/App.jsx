@@ -15,6 +15,11 @@ import Edit from './components/employee/Edit';
 import Settings from './components/Settings/settings';
 import EmployeeSummary from './components/EmployeeDashboard/EmployeeSummary';
 import Profile from './components/EmployeeDashboard/Profile';
+import LeaveList from './components/leave/list';
+import AddLeave from './components/leave/add';
+import Attendance from './components/attendance/Attendance';
+import ScanAttendance from './components/attendance/ScanAttendance';
+import EmpAttendance from './components/attendance/EmpAttendance';
 
 function App() {
   return (
@@ -40,7 +45,8 @@ function App() {
           <Route path="/admin-dashboard/add-employee" element={<Add />} ></Route>
           <Route path="/admin-dashboard/employee/:id" element={<View />} ></Route>
           <Route path="/admin-dashboard/employee/edit/:id" element={<Edit />} ></Route>
-
+          <Route path="/admin-dashboard/leaves" element={<LeaveList />} ></Route>
+          <Route path="/admin-dashboard/attendance" element={<Attendance />} ></Route>
 
           <Route path="/admin-dashboard/settings" element={<Settings />} />
 
@@ -57,8 +63,12 @@ function App() {
         } >
           
           <Route index element={<EmployeeSummary/>} ></Route>
-          <Route path="/employee-dashboard/profile/:id" element={<Profile />} ></Route>
-          <Route path="/employee-dashboard/profile" element={<Profile />} ></Route>
+          <Route path="/employee-dashboard/profile/:id?" element={<Profile />} ></Route>
+          <Route path="/employee-dashboard/leaves" element={<LeaveList />} ></Route>
+          <Route path="/employee-dashboard/add-leave" element={<AddLeave />} ></Route>
+          <Route path="/employee-dashboard/settings" element={<Settings />} />
+          <Route path="/employee-dashboard/attendance" element={<EmpAttendance />} ></Route>
+          <Route path="/employee-dashboard/add-attendance" element={<ScanAttendance />} ></Route>
 
         </Route>
 

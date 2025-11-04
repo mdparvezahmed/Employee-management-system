@@ -6,7 +6,7 @@ import { useAuth } from '../../context/AuthContext'
 
 const Sidebar = ({ isOpen, onClose }) => {
 
-    const user = useAuth();
+    const { user } = useAuth();
 
     const navLinkClass = ({ isActive }) =>
         `flex items-center gap-2 p-2 rounded ${isActive ? "bg-gray-700" : "hover:bg-gray-700"}`;
@@ -40,7 +40,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                         <FaTachometerAlt />
                         <span>Dashboard</span>
                     </NavLink>
-                    <NavLink to={"/employee-dashboard/profile"} className={navLinkClass} end onClick={onClose}>
+                    <NavLink to={`/employee-dashboard/profile/${user?._id || 'current'}`} className={navLinkClass} end onClick={onClose}>
                         <FaUser />
                         <span>My Profile</span>
                     </NavLink>
@@ -48,10 +48,10 @@ const Sidebar = ({ isOpen, onClose }) => {
                         <FaBuilding />
                         <span>Leaves</span>
                     </NavLink>
-                    <NavLink to={"/employee-dashboard/salary"} className={navLinkClass} end onClick={onClose}>
+                    {/* <NavLink to={"/employee-dashboard/salary"} className={navLinkClass} end onClick={onClose}>
                         <FaCalendarAlt />
                         <span>Salary</span>
-                    </NavLink>
+                    </NavLink> */}
 
                     <NavLink to={"/employee-dashboard/attendance"} className={navLinkClass} end onClick={onClose}>
                         <FaCalendar />

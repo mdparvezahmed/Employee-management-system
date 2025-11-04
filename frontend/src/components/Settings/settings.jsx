@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import { axiosAPI } from '../../config/api'
 import { useAuth } from '../../context/AuthContext'
 
 const settings = () => {
@@ -45,7 +46,7 @@ const settings = () => {
 
     try {
       const token = localStorage.getItem('token')
-      const response = await axios.put('http://localhost:7000/api/auth/change-password', {
+  const response = await axiosAPI.put('/api/auth/change-password', {
         currentPassword: passwordData.currentPassword,
         newPassword: passwordData.newPassword
       }, {

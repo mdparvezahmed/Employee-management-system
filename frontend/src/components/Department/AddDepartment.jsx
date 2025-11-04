@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { axiosAPI } from '../../config/api';
 import { useNavigate } from 'react-router-dom';
 
 const AddDepartment = () => {
@@ -18,7 +19,7 @@ const AddDepartment = () => {
     e.preventDefault();
     try {
       
-      const response = await axios.post("http://localhost:7000/api/department/add", department, {
+      const response = await axiosAPI.post("/api/department/add", department, {
         headers:{
           "Authorization": `Bearer ${localStorage.getItem("token")}`
         }

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { axiosAPI } from '../config/api';
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -17,7 +18,7 @@ const Login = () => {
         e.preventDefault();
         try {
 
-            const response = await axios.post('http://localhost:7000/api/auth/login', {
+            const response = await axiosAPI.post('/api/auth/login', {
                 email,
                 password
             });

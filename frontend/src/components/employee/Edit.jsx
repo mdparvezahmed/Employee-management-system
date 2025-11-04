@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { fetchDepartments } from '../../utils/EmployeeHelper'
 import axios from 'axios';
+import { axiosAPI, buildUploadUrl } from '../../config/api';
 
 const Edit = () => {
   const [imagePreview, setImagePreview] = useState(null)
@@ -39,7 +40,7 @@ const Edit = () => {
 
   const fetchEmployeeData = async () => {
     try {
-      const response = await axios.get(`http://localhost:7000/api/employee/${id}`, {
+      const response = await axiosAPI.get(`/api/employee/${id}`, {
         headers: {
           "Authorization": `Bearer ${localStorage.getItem("token")}`
         }
@@ -63,7 +64,7 @@ const Edit = () => {
 
         // Set image preview if employee has an existing image
         if (employee.profileImage) {
-          setImagePreview(`http://localhost:7000/${employee.profileImage}`);
+          setImagePreview(buildUploadUrl(employee.profileImage));
         }
       }
     } catch (error) {
@@ -102,7 +103,7 @@ const Edit = () => {
     });
     
     try {
-      const response = await axios.put(`http://localhost:7000/api/employee/edit/${id}`, formDataObj, {
+      const response = await axiosAPI.put(`/api/employee/edit/${id}`, formDataObj, {
         headers: {
           "Authorization": `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "multipart/form-data"
